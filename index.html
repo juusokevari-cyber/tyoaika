@@ -3,20 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suojattu Työaika & Viikko-ohjelma</title>
+    <title>PK-35 Työajan Seuranta</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #18bc9c;
-            --danger: #e74c3c;
+            --primary: #c0392b; /* PK-35 Punainen */
+            --secondary: #e67e22;
+            --danger: #962d22;
             --info: #2980b9;
-            --bg: #f8f9fa;
-            --text: #333;
+            --bg: #111111; /* Tumma tausta */
+            --text: #ffffff;
+            --card-bg: rgba(20, 20, 20, 0.85); /* Läpinäkyvä tumma kortti */
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
+            /* PK-35 Punamustaraidallinen teematausta ja logo keskellä */
+            background-image: 
+                linear-with-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
+                url('https://pk35.fi/images/Logot/PK-35_logo_pysty_RGB.png'),
+                repeating-linear-gradient(90deg, #111 0px, #111 60px, #8b0000 60px, #8b0000 120px);
+            background-position: center;
+            background-repeat: no-repeat, no-repeat, repeat;
+            background-attachment: fixed;
+            background-size: cover, 450px, auto;
             color: var(--text);
             margin: 0;
             padding: 20px;
@@ -25,26 +35,31 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: var(--card-bg);
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
         }
 
-        h1, h2 {
-            color: var(--primary);
-            border-bottom: 2px solid #ecf0f1;
+        h1, h2, h3 {
+            color: #ffffff;
+            border-bottom: 2px solid var(--primary);
             padding-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
 
         .login-box {
             max-width: 400px;
             margin: 100px auto;
-            background: white;
+            background: var(--card-bg);
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+            border: 1px solid var(--primary);
             text-align: center;
+            backdrop-filter: blur(8px);
         }
 
         .grid {
@@ -61,111 +76,116 @@
             display: block;
             margin-top: 12px;
             font-weight: bold;
+            color: #ecf0f1;
         }
 
         input, select, textarea, button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid #444;
+            border-radius: 6px;
             box-sizing: border-box;
             font-family: inherit;
+            background-color: rgba(30, 30, 30, 0.9);
+            color: #fff;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(192, 57, 43, 0.5);
         }
 
         button {
-            background-color: var(--secondary);
+            background-color: var(--primary);
             color: white;
             border: none;
             font-weight: bold;
             cursor: pointer;
             margin-top: 15px;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         button:hover {
-            background-color: #128f76;
+            background-color: #a12f24;
+            transform: translateY(-1px);
         }
 
         .btn-info { background-color: var(--info); margin-top: 10px; }
         .btn-info:hover { background-color: #1f6391; }
         
-        .btn-danger { background-color: var(--danger); margin-top: 10px; }
-        .btn-danger:hover { background-color: #c0392b; }
+        .btn-danger { background-color: #7f8c8d; margin-top: 10px; }
+        .btn-danger:hover { background-color: #6c7a7d; }
 
         .logout-btn {
             float: right;
             width: auto;
-            background-color: #7f8c8d;
+            background-color: #333;
             margin-top: 0;
-            padding: 5px 15px;
+            padding: 6px 15px;
+            border: 1px solid #555;
         }
-        .logout-btn:hover { background-color: #95a5a6; }
-
-        .summary-box {
-            background: #e8f4f8;
-            padding: 15px;
-            margin-top: 20px;
-            border: 1px solid #bce1ec;
-            border-radius: 4px;
-        }
+        .logout-btn:hover { background-color: #444; }
 
         .filter-box {
-            background: #fdfefe;
+            background: rgba(40, 40, 40, 0.6);
             padding: 12px;
-            border: 2px dashed var(--info);
+            border: 1px solid var(--info);
             border-radius: 6px;
             margin-bottom: 15px;
         }
 
         .month-section {
             margin-top: 20px;
-            border: 1px solid #ddd;
+            border: 1px solid #444;
             border-radius: 6px;
             overflow: hidden;
         }
 
         .month-header {
-            background: var(--primary);
+            background: #222;
             color: white;
             padding: 12px;
             font-weight: bold;
             font-size: 1.1em;
+            border-bottom: 2px solid var(--primary);
         }
 
         .accordion-item {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #333;
         }
 
         .accordion-trigger {
-            background: #f1f2f6;
-            padding: 10px 15px;
+            background: rgba(30, 30, 30, 0.7);
+            padding: 12px 15px;
             cursor: pointer;
             font-weight: bold;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            user-select: none;
         }
 
         .accordion-trigger:hover {
-            background: #e4e7eb;
+            background: rgba(50, 50, 50, 0.8);
         }
 
         .accordion-content {
             display: none;
             padding: 10px 20px;
-            background: white;
+            background: rgba(15, 15, 15, 0.8);
         }
 
         .day-item {
             margin: 5px 0;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #333;
             border-radius: 4px;
         }
 
         .day-trigger {
-            background: #fafafa;
+            background: rgba(40, 40, 40, 0.5);
             padding: 8px 12px;
             cursor: pointer;
             font-size: 0.95em;
@@ -175,33 +195,33 @@
         }
 
         .day-trigger:hover {
-            background: #f0f0f0;
+            background: rgba(60, 60, 60, 0.6);
         }
 
         .day-content {
             display: none;
             padding: 10px 15px;
-            background: #fff;
-            border-top: 1px solid #eee;
-            font-size: 0.9em;
+            background: rgba(20, 20, 20, 0.9);
+            border-top: 1px solid #333;
         }
 
         .pankki-info {
             display: flex;
             justify-content: space-between;
-            background: #eee;
+            background: #222;
             padding: 8px 12px;
             border-radius: 4px;
             margin-top: 10px;
             margin-bottom: 10px;
             font-weight: bold;
+            border: 1px solid #444;
         }
 
-        .saldo-plus { background-color: #d4edda; color: #155724; }
-        .saldo-miinus { background-color: #f8d7da; color: #721c24; }
+        .saldo-plus { color: #2ecc71; }
+        .saldo-miinus { color: #e74c3c; }
 
         .tag {
-            background: var(--info);
+            background: var(--primary);
             color: white;
             padding: 2px 6px;
             border-radius: 4px;
@@ -222,8 +242,8 @@
 <body>
 
 <div id="loginPage" class="login-box">
-    <h2>🔐 Kirjaudu sisään</h2>
-    <p>Syötä henkilökohtainen PIN-koodisi päästäksesi sovellukseen.</p>
+    <h2>⚽ PK-35 Työaika</h2>
+    <p>Syötä henkilökohtainen PIN-koodisi.</p>
     <form id="loginForm">
         <label for="pinCode">PIN-koodi:</label>
         <input type="password" id="pinCode" placeholder="xxxx" maxlength="6" required style="text-align: center; font-size: 1.5em; letter-spacing: 5px;">
@@ -232,20 +252,20 @@
 </div>
 
 <div id="mainPage" class="container" style="display: none;">
-    <button id="logoutBtn" class="logout-btn">Kirjaudu ulos 🚪</button>
-    <h1>Työajan ja Tehtävien Seuranta (<span id="userDisplay"></span>)</h1>
+    <button id="logoutBtn" class="logout-btn">🚪 Ulos</button>
+    <h1>PK-35 Työajan Seuranta (<span id="userDisplay"></span>)</h1>
 
     <div class="grid">
         <section>
-            <h2>✍️ Kirjaa työaika / Kalenteri</h2>
+            <h2>✍️ Kirjaa työaika</h2>
             <form id="workForm">
-                <label for="date">Valitse päivämäärä (Kalenteri):</label>
+                <label for="date">Päivämäärä (Kalenteri):</label>
                 <input type="date" id="date" required>
 
-                <label for="employee">Työntekijän nimi:</label>
+                <label for="employee">Työntekijä:</label>
                 <select id="employee" required></select>
 
-                <label for="task">Valitse tehtävä / tapahtuma:</label>
+                <label for="task">Tehtävä / tapahtuma:</label>
                 <select id="task" required>
                     <option value="">Valitse tehtävä listasta...</option>
                     <option value="Ottelut tapahtumat">Ottelut tapahtumat</option>
@@ -264,11 +284,11 @@
                     <option value="Muu tehtävä">⚠️ Muu tehtävä (vaatii selitteen)</option>
                 </select>
 
-                <label for="hours">Käytetyt tunnit (h):</label>
+                <label for="hours">Tunnit (h):</label>
                 <input type="number" id="hours" min="0.5" step="0.5" placeholder="Esim. 7.5" required>
 
                 <label for="details">Tarkemmat lisätiedot / kommentit <span id="requiredLabel"></span>:</label>
-                <textarea id="details" rows="2" placeholder="Kirjoita tähän tarkennus tehdystä työstä..."></textarea>
+                <textarea id="details" rows="2" placeholder="Kirjoita tarkennus tehdystä työstä..."></textarea>
 
                 <button type="submit">Tallenna merkintä</button>
             </form>
@@ -279,9 +299,9 @@
             <p id="reportSub">Ladataan tietoja pilvestä...</p>
             
             <div id="managerFilterContainer" class="filter-box" style="display: none;">
-                <label for="managerViewFilter" style="margin-top:0; color: var(--info);">🔍 Suodata näkymää työntekijöittäin:</label>
+                <label for="managerViewFilter" style="margin-top:0; color: #fff;">🔍 Suodata työntekijöittäin:</label>
                 <select id="managerViewFilter">
-                    <option value="all">👥 Näytä kaikki työntekijät yhdessä</option>
+                    <option value="all">👥 Kaikki työntekijät</option>
                     <option value="Kim">👤 Kim</option>
                     <option value="Lari">👤 Lari</option>
                     <option value="Tapio">👤 Tapio</option>
@@ -300,16 +320,16 @@
                 <ul id="globalSummaryList"></ul>
             </div>
 
-            <div id="managerButtons" class="button-group" style="display: none;">
-                <button id="downloadBtn" class="btn-info">📥 Lataa Exceliin (CSV)</button>
-                <button id="clearBtn" class="btn-danger">🗑️ Tyhjennä kaikki tiedot</button>
+            <div class="button-group">
+                <button id="downloadBtn" class="btn-info" style="display:none;">📥 Lataa Exceliin (CSV)</button>
+                <button id="clearBtn" class="btn-danger" style="display:none;">🗑️ Tyhjennä tiedot</button>
             </div>
         </section>
     </div>
 </div>
 
 <script>
-    // 🔗 TÄHÄN SE SINUN OMA FIREBASE-LINKKISI
+    // 🔗 OMA FIREBASE-LINKKISI (Vaihda tähän omasi!)
     const FIREBASE_URL = "https://seuran-tyoaika-default-rtdb.europe-west1.firebasedatabase.app/";
 
     const PIN_CONFIG = {
@@ -332,7 +352,8 @@
     const pinInput = document.getElementById('pinCode');
     const userDisplay = document.getElementById('userDisplay');
     const employeeSelect = document.getElementById('employee');
-    const managerButtons = document.getElementById('managerButtons');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const clearBtn = document.getElementById('clearBtn');
     const managerFilterContainer = document.getElementById('managerFilterContainer');
     const managerViewFilter = document.getElementById('managerViewFilter');
     
@@ -340,8 +361,6 @@
     const reportContainer = document.getElementById('reportContainer');
     const reportTitle = document.getElementById('reportTitle');
     const reportSub = document.getElementById('reportSub');
-    const clearBtn = document.getElementById('clearBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
     const taskSelect = document.getElementById('task');
     const detailsTextarea = document.getElementById('details');
     const requiredLabel = document.getElementById('requiredLabel');
@@ -354,15 +373,13 @@
         d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
         d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
         var startOfYear = new Date(Date.UTC(d.getUTCFullYear(),0,1));
-        var weekNo = Math.ceil(( ( (d - startOfYear) / 86400000) + 1)/7);
-        return weekNo;
+        return Math.ceil(( ( (d - startOfYear) / 86400000) + 1)/7);
     }
 
     const KUUKAUDET = ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesäkuu", "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"];
 
     function haeTiedotPilvestä() {
         if (!FIREBASE_URL || FIREBASE_URL.includes("TÄHÄN SE")) return;
-
         fetch(`${FIREBASE_URL}logs.json`)
         .then(res => res.json())
         .then(data => {
@@ -374,80 +391,67 @@
             }
             pivitaRaportti();
         })
-        .catch(err => console.error("Virhe ladattaessa tietoja:", err));
+        .catch(err => console.error(err));
     }
 
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const pin = pinInput.value;
-
         if (PIN_CONFIG[pin]) {
             currentUser = PIN_CONFIG[pin];
             lataaKäyttöliittymä();
             haeTiedotPilvestä();
         } else {
-            alert('Väärä PIN-koodi! Yritä uudelleen.');
+            alert('Väärä PIN!');
             pinInput.value = '';
         }
     });
 
-    // Jos johtaja muuttaa suodatinvalikon arvoa, päivitetään raportti heti dynaamisesti
-    managerViewFilter.addEventListener('change', function() {
-        pivitaRaportti();
-    });
+    managerViewFilter.addEventListener('change', pivitaRaportti);
 
     function lataaKäyttöliittymä() {
         loginPage.style.display = 'none';
         mainPage.style.display = 'block';
         userDisplay.innerText = currentUser.nimi;
-
         employeeSelect.innerHTML = '';
+
         if (currentUser.rooli === 'manager') {
             reportTitle.innerText = "📊 Johtajan tunti- & viikkonäkymä";
-            reportSub.innerText = "Seuraa kaikkia tai valitse alta tietty työntekijä.";
-            managerButtons.style.display = 'grid';
-            managerFilterContainer.style.display = 'block'; // Avataan suodatinlaatikko johtajalle
+            downloadBtn.style.display = 'inline-block';
+            clearBtn.style.display = 'inline-block';
+            managerFilterContainer.style.display = 'block';
             
             let html = '<option value="">Valitse työntekijä...</option>';
             for (let pin in PIN_CONFIG) {
-                if (PIN_CONFIG[pin].rooli === 'employee') {
-                    html += `<option value="${PIN_CONFIG[pin].nimi}">${PIN_CONFIG[pin].nimi}</option>`;
-                }
+                if (PIN_CONFIG[pin].rooli === 'employee') html += `<option value="${PIN_CONFIG[pin].nimi}">${PIN_CONFIG[pin].nimi}</option>`;
             }
             employeeSelect.innerHTML = html;
         } else {
             reportTitle.innerText = `📊 Oma tunti- & viikkonäkymä`;
-            reportSub.innerText = "Klikkaa viikkoa ja päivää nähdäksesi omat kirjauksesi.";
-            managerButtons.style.display = 'none';
-            managerFilterContainer.style.display = 'none'; // Piilotetaan suodatinlaatikko työntekijältä
+            downloadBtn.style.display = 'none';
+            clearBtn.style.display = 'none';
+            managerFilterContainer.style.display = 'none';
             globalSummaryContainer.style.display = 'none';
             employeeSelect.innerHTML = `<option value="${currentUser.nimi}">${currentUser.nimi}</option>`;
         }
     }
 
-    logoutBtn.addEventListener('click', function() {
-        currentUser = null;
-        pinInput.value = '';
-        mainPage.style.display = 'none';
-        loginPage.style.display = 'block';
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        currentUser = null; pinInput.value = ''; mainPage.style.display = 'none'; loginPage.style.display = 'block';
     });
 
     taskSelect.addEventListener('change', function() {
         if (taskSelect.value === "Muu tehtävä") {
-            detailsTextarea.required = true;
-            requiredLabel.innerHTML = '<span style="color:red;">(PAKOLLINEN)</span>';
+            detailsTextarea.required = true; requiredLabel.innerHTML = '<span style="color:red;">(PAKOLLINEN)</span>';
         } else {
-            detailsTextarea.required = false;
-            requiredLabel.innerHTML = '';
+            detailsTextarea.required = false; requiredLabel.innerHTML = '';
         }
     });
 
     workForm.addEventListener('submit', function(e) {
         e.preventDefault();
-
         const dateInput = document.getElementById('date').value;
-        const rawDate = new Date(dateInput);
-        const dateStr = rawDate.toLocaleDateString('fi-FI');
+        const dateStr = new Date(dateInput).toLocaleDateString('fi-FI');
         const employee = employeeSelect.value;
         const task = taskSelect.value;
         const hours = parseFloat(document.getElementById('hours').value);
@@ -455,26 +459,21 @@
 
         const newLog = { employee, task, hours, details, date: dateStr, isoDate: dateInput };
 
-        fetch(`${FIREBASE_URL}logs.json`, {
-            method: 'POST',
-            body: JSON.stringify(newLog)
-        })
+        fetch(`${FIREBASE_URL}logs.json`, { method: 'POST', body: JSON.stringify(newLog) })
         .then(() => {
-            alert('Merkintä tallennettu onnistuneesti!');
+            alert('Tallennettu pilveen!');
             workForm.reset();
             document.getElementById('date').valueAsDate = new Date();
             employeeSelect.value = employee;
             requiredLabel.innerHTML = '';
             haeTiedotPilvestä();
-        })
-        .catch(err => console.error(err));
+        });
     });
 
     if (clearBtn) {
         clearBtn.addEventListener('click', function() {
-            if (confirm('Haluatko varmasti poistaa kaikki kirjaukset?')) {
-                fetch(`${FIREBASE_URL}logs.json`, { method: 'DELETE' })
-                .then(() => { haeTiedotPilvestä(); });
+            if (confirm('Tyhjennetäänkö kaikki?')) {
+                fetch(`${FIREBASE_URL}logs.json`, { method: 'DELETE' }).then(() => haeTiedotPilvestä());
             }
         });
     }
@@ -483,15 +482,9 @@
         downloadBtn.addEventListener('click', function() {
             if (dataLog.length === 0) return;
             let csvContent = "data:text/csv;charset=utf-8,\uFEFFPäivämäärä;Työntekijä;Tehtävä;Tunnit;Lisätiedot\r\n";
-            dataLog.forEach(log => {
-                csvContent += `${log.date};${log.employee};${log.task};${log.hours};${log.details.replace(/;/g, ',')}\r\n`;
-            });
-            const link = document.createElement("a");
-            link.setAttribute("href", encodeURI(csvContent));
-            link.setAttribute("download", "seuran_tyoaikaraportti.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            dataLog.forEach(log => { csvContent += `${log.date};${log.employee};${log.task};${log.hours};${log.details.replace(/;/g, ',')}\r\n`; });
+            const link = document.createElement("a"); link.setAttribute("href", encodeURI(csvContent)); link.setAttribute("download", "seuran_tyoaikaraportti.csv");
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
         });
     }
 
@@ -503,7 +496,6 @@
                 this.querySelector('.arrow').innerText = content.style.display === 'block' ? '▲' : '▼';
             };
         });
-
         document.querySelectorAll('.day-trigger').forEach(trigger => {
             trigger.onclick = function() {
                 const content = this.nextElementSibling;
@@ -516,82 +508,41 @@
     function pivitaRaportti() {
         if (!currentUser) return;
         reportContainer.innerHTML = '';
-
-        if (dataLog.length === 0) {
-            reportContainer.innerHTML = '<p>Ei vielä kirjauksia pilvessä.</p>';
-            return;
-        }
+        if (dataLog.length === 0) { reportContainer.innerHTML = '<p>Ei vielä kirjauksia.</p>'; return; }
 
         const taskTotals = {};
+        let suodatetutLogit = currentUser.rooli !== 'manager' ? dataLog.filter(log => log.employee === currentUser.nimi) : dataLog;
         
-        // 1. Suodatetaan logit roolin ja valitun suodattimen mukaan
-        let suodatetutLogit = dataLog;
-        
-        if (currentUser.rooli !== 'manager') {
-            // Työntekijä näkee aina vain omansa
-            suodatetutLogit = dataLog.filter(log => log.employee === currentUser.nimi);
-        } else {
-            // Johtaja näkee suodatinvalinnan mukaan joko kaikki tai tietyn työntekijän
-            const valittuSuodatin = managerViewFilter.value;
-            if (valittuSuodatin !== 'all') {
-                suodatetutLogit = dataLog.filter(log => log.employee === valittuSuodatin);
-            }
+        if (currentUser.rooli === 'manager' && managerViewFilter.value !== 'all') {
+            suodatetutLogit = dataLog.filter(log => log.employee === managerViewFilter.value);
         }
 
-        // Lasketaan seuran kokonaistunnit tehtävittäin (näytetään aina johtajalle)
-        dataLog.forEach(log => {
-            taskTotals[log.task] = (taskTotals[log.task] || 0) + log.hours;
-        });
+        dataLog.forEach(log => { taskTotals[log.task] = (taskTotals[log.task] || 0) + log.hours; });
 
         if (currentUser.rooli === 'manager') {
-            globalSummaryContainer.style.display = 'block';
-            globalSummaryList.innerHTML = '';
-            for (const task in taskTotals) {
-                globalSummaryList.innerHTML += `<li><strong>${task}:</strong> ${taskTotals[task]} h</li>`;
-            }
+            globalSummaryContainer.style.display = 'block'; globalSummaryList.innerHTML = '';
+            for (const task in taskTotals) globalSummaryList.innerHTML += `<li><strong>${task}:</strong> ${taskTotals[task]} h</li>`;
         }
 
-        // 2. Ryhmitellään suodatetut tiedot: Vuosi-Kuukausi -> Viikko -> Päivä
         const hierarchy = {};
-
         suodatetutLogit.forEach(log => {
             let dObj = log.isoDate ? new Date(log.isoDate) : null;
-            if(!dObj) {
-                const osat = log.date.split('.');
-                dObj = new Date(osat[2], osat[1]-1, osat[0]);
-            }
-            
-            const vuosi = dObj.getFullYear();
-            const kkIndeksi = dObj.getMonth();
-            const kkNimi = `${KUUKAUDET[kkIndeksi]} ${vuosi}`;
+            if(!dObj) { const osat = log.date.split('.'); dObj = new Date(osat[2], osat[1]-1, osat[0]); }
+            const kkNimi = `${KUUKAUDET[dObj.getMonth()]} ${dObj.getFullYear()}`;
             const viikko = getWeekNumber(dObj);
-            const paivaAvain = log.date;
-
             if (!hierarchy[kkNimi]) hierarchy[kkNimi] = {};
             if (!hierarchy[kkNimi][viikko]) hierarchy[kkNimi][viikko] = {};
-            if (!hierarchy[kkNimi][viikko][paivaAvain]) hierarchy[kkNimi][viikko][paivaAvain] = [];
-
-            hierarchy[kkNimi][viikko][paivaAvain].push(log);
+            if (!hierarchy[kkNimi][viikko][log.date]) hierarchy[kkNimi][viikko][log.date] = [];
+            hierarchy[kkNimi][viikko][log.date].push(log);
         });
 
-        // 3. Rakennetaan HTML-haitari
         for (const kk in hierarchy) {
-            const monthBox = document.createElement('div');
-            monthBox.className = 'month-section';
-            
+            const monthBox = document.createElement('div'); monthBox.className = 'month-section';
             let monthHtml = `<div class="month-header">📅 ${kk}</div>`;
-            
-            const viikkotunnitPankki = {};
-            const viikkopaivatPankki = {};
-
-            // Lasketaan saldot ja tunnit viikoittain henkilökohtaisesti oikein
             const viikot = Object.keys(hierarchy[kk]).sort((a,b) => b - a);
+            
             viikot.forEach(vko => {
-                let vkoTunnit = 0;
-                
-                // Selvitetään kuinka monta *työntekijäkohtaista työpäivää* viikolla on tehty saldoa varten
-                const tyontekijanPaivat = {}; 
-
+                let vkoTunnit = 0; const tyontekijanPaivat = {};
                 for (const d in hierarchy[kk][vko]) {
                     hierarchy[kk][vko][d].forEach(l => {
                         vkoTunnit += l.hours;
@@ -599,75 +550,46 @@
                         tyontekijanPaivat[l.employee].add(d);
                     });
                 }
-                
-                // Lasketaan viikkosaldon velvoite kaikkien suodatuksessa mukana olevien kesken
-                let kokonaisVelvoite = 0;
-                for (const emp in tyontekijanPaivat) {
-                    kokonaisVelvoite += tyontekijanPaivat[emp].size * PAIVA_TAVOITE;
-                }
-                
-                const vkoSaldo = vkoTunnit - kokonaisVelvoite;
-                let saldoLuokka = vkoSaldo >= 0 ? 'saldo-plus' : 'saldo-miinus';
-                let saldoTeksti = `Saldo: ${vkoSaldo >= 0 ? '+' : ''}${vkoSaldo.toFixed(1)}h`;
+                let velvoite = 0; for (const e in tyontekijanPaivat) velvoite += tyontekijanPaivat[e].size * PAIVA_TAVOITE;
+                const vkoSaldo = vkoTunnit - velvoite;
 
-                // Tehdään viikko-otsikko
                 monthHtml += `
                     <div class="accordion-item">
                         <div class="accordion-trigger">
                             <span>📋 Viikko ${vko} <span class="tag">${vkoTunnit} h</span></span>
-                            <span style="font-size:0.85em; margin-left:10px;" class="${saldoLuokka}">${saldoTeksti}</span>
+                            <span class="${vkoSaldo >= 0 ? 'saldo-plus' : 'saldo-miinus'}">Saldo: ${vkoSaldo >= 0 ? '+' : ''}${vkoSaldo.toFixed(1)}h</span>
                             <span class="arrow">▼</span>
                         </div>
                         <div class="accordion-content">
                 `;
 
-                // Käydään päivät läpi
                 const paivat = Object.keys(hierarchy[kk][vko]).sort((a,b) => {
-                    const muutaPaiva = p => { const o = p.split('.'); return new Date(o[2], o[1]-1, o[0]); };
-                    return muutaPaiva(b) - muutaPaiva(a);
+                    const m = p => { const o = p.split('.'); return new Date(o[2], o[1]-1, o[0]); }; return m(b) - m(a);
                 });
 
                 paivat.forEach(pva => {
-                    let pvaTunnit = 0;
-                    hierarchy[kk][vko][pva].forEach(l => pvaTunnit += l.hours);
-
+                    let pvaTunnit = 0; hierarchy[kk][vko][pva].forEach(l => pvaTunnit += l.hours);
                     monthHtml += `
                         <div class="day-item">
-                            <div class="day-trigger">
-                                <span>🗓️ ${pva}</span>
-                                <span><strong>${pvaTunnit} h</strong> <span class="arrow-day" style="margin-left:8px;">▼</span></span>
-                            </div>
+                            <div class="day-trigger"><span>🗓️ ${pva}</span><span><strong>${pvaTunnit} h</strong> <span class="arrow-day">▼</span></span></div>
                             <div class="day-content">
                     `;
-
                     hierarchy[kk][vko][pva].forEach(log => {
                         monthHtml += `
-                            <div style="padding: 6px 0; border-bottom: 1px dashed #eee;">
-                                <strong>👤 ${log.employee}</strong> — <span>${log.task}</span> (<strong>${log.hours}h</strong>)
-                                ${log.details ? `<br><small style="color:#555; font-style:italic;">✍️ "${log.details}"</small>` : ''}
+                            <div style="padding: 6px 0; border-bottom: 1px dashed #333;">
+                                <strong>👤 ${log.employee}</strong> — ${log.task} (<strong>${log.hours}h</strong>)
+                                ${log.details ? `<br><small style="color:#bbb; font-style:italic;">✍️ "${log.details}"</small>` : ''}
                             </div>
                         `;
                     });
-
-                    monthHtml += `
-                            </div>
-                        </div>
-                    `;
+                    monthHtml += `</div></div>`;
                 });
-
-                monthHtml += `
-                        </div>
-                    </div>
-                `;
+                monthHtml += `</div></div>`;
             });
-
-            monthBox.innerHTML = monthHtml;
-            reportContainer.appendChild(monthBox);
+            monthBox.innerHTML = monthHtml; reportContainer.appendChild(monthBox);
         }
-
         alustaHaitariKlikkaukset();
     }
 </script>
-
 </body>
 </html>
