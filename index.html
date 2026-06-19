@@ -18,7 +18,6 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
-            /* Varma ja toimiva raidallinen teematausta seuran väreissä */
             background-image: 
                 linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.9)),
                 repeating-linear-gradient(90deg, #111111 0px, #111111 60px, #700707 60px, #700707 120px);
@@ -29,7 +28,6 @@
             padding: 20px;
         }
 
-        /* ⚽ LOGO SIVUSTON YLÄREUNASSA */
         .club-logo-header {
             display: flex;
             align-items: center;
@@ -39,9 +37,9 @@
         }
 
         .club-logo-img {
-            height: 70px; /* Säädä logon kokoa tästä tarvittaessa */
+            height: 80px;
             width: auto;
-            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5));
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.6));
         }
 
         .container {
@@ -257,7 +255,7 @@
 
 <div id="loginPage" class="login-box">
     <div class="club-logo-header">
-        <img src="PK-35_Helsinki_logo.svg.png" alt="PK-35" class="club-logo-img">
+        <img src="./logo.png" alt="PK-35" class="club-logo-img">
     </div>
     <h2>PK-35 Työaika</h2>
     <p>Syötä henkilökohtainen PIN-koodisi.</p>
@@ -272,7 +270,7 @@
     <button id="logoutBtn" class="logout-btn">🚪 Ulos</button>
     
     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-        <img src="PK-35_Helsinki_logo.svg.png" alt="PK-35" style="height: 45px; width: auto;">
+        <img src="./logo.png" alt="PK-35" style="height: 50px; width: auto;">
         <h1 style="border-bottom:none; padding-bottom:0; margin:0; font-size: 1.8em;">PK-35 Seuranta (<span id="userDisplay"></span>)</h1>
     </div>
 
@@ -350,7 +348,7 @@
 </div>
 
 <script>
-    // 🔗 OMA FIREBASE-LINKKISI (Muista tarkistaa!)
+    // 🔗 OMA FIREBASE-LINKKISI
     const FIREBASE_URL = "https://seuran-tyoaika-default-rtdb.europe-west1.firebasedatabase.app/";
 
     const PIN_CONFIG = {
