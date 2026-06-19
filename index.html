@@ -12,13 +12,13 @@
             --info: #2980b9;
             --bg: #111111; 
             --text: #ffffff;
-            --card-bg: rgba(18, 18, 18, 0.92); /* Erittäin tyylikäs, tumma ja läpinäkyvä */
+            --card-bg: rgba(18, 18, 18, 0.92); 
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
-            /* Standardi ja varma pystyraitatausta */
+            /* Varma ja toimiva raidallinen teematausta seuran väreissä */
             background-image: 
                 linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.9)),
                 repeating-linear-gradient(90deg, #111111 0px, #111111 60px, #700707 60px, #700707 120px);
@@ -27,26 +27,9 @@
             color: var(--text);
             margin: 0;
             padding: 20px;
-            position: relative;
         }
 
-        /* ⚽ DIGITAALINEN PK-35 LOGO TAUSTALLE (Varmistettu toimivuus kaikilla laitteilla) */
-        body::before {
-            content: "PK-35";
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 14vw;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.03); /* Erittäin hienovaraisesti taustalta kuultava teksti */
-            font-style: italic;
-            letter-spacing: -5px;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Seuran tunnus ja tyylitelty kilpi sivuston yläreunassa */
+        /* ⚽ LOGO SIVUSTON YLÄREUNASSA */
         .club-logo-header {
             display: flex;
             align-items: center;
@@ -55,20 +38,10 @@
             margin-bottom: 20px;
         }
 
-        .shield-logo {
-            width: 60px;
-            height: 60px;
-            background: #000;
-            border: 3px solid #f1c40f; /* Kultainen reunus kuten PK-35 logossa */
-            border-radius: 0 0 30px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1em;
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            border-top: 10px solid var(--primary); /* Punainen yläosa */
+        .club-logo-img {
+            height: 70px; /* Säädä logon kokoa tästä tarvittaessa */
+            width: auto;
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5));
         }
 
         .container {
@@ -78,7 +51,7 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.8);
-            border: 1px solid rgba(192, 57, 43, 0.3); /* Punertava hienovaraisreuna laatikossa */
+            border: 1px solid rgba(192, 57, 43, 0.3);
             backdrop-filter: blur(10px);
         }
 
@@ -284,7 +257,7 @@
 
 <div id="loginPage" class="login-box">
     <div class="club-logo-header">
-        <div class="shield-logo">PK-35</div>
+        <img src="logo.png" alt="PK-35" class="club-logo-img">
     </div>
     <h2>PK-35 Työaika</h2>
     <p>Syötä henkilökohtainen PIN-koodisi.</p>
@@ -298,9 +271,9 @@
 <div id="mainPage" class="container" style="display: none;">
     <button id="logoutBtn" class="logout-btn">🚪 Ulos</button>
     
-    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
-        <div class="shield-logo" style="width:45px; height:45px; font-size:0.85em; border-radius: 0 0 20px 20px; border-top-width:6px;">PK-35</div>
-        <h1 style="border-bottom:none; padding-bottom:0; margin:0;">PK-35 Seuranta (<span id="userDisplay"></span>)</h1>
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+        <img src="logo.png" alt="PK-35" style="height: 45px; width: auto;">
+        <h1 style="border-bottom:none; padding-bottom:0; margin:0; font-size: 1.8em;">PK-35 Seuranta (<span id="userDisplay"></span>)</h1>
     </div>
 
     <div class="grid">
@@ -377,7 +350,7 @@
 </div>
 
 <script>
-    // 🔗 TÄHÄN SE SINUN OMA FIREBASE-LINKKISI (Laita tähän omasi!)
+    // 🔗 OMA FIREBASE-LINKKISI (Muista tarkistaa!)
     const FIREBASE_URL = "https://seuran-tyoaika-default-rtdb.europe-west1.firebasedatabase.app/";
 
     const PIN_CONFIG = {
