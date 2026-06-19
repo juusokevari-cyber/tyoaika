@@ -12,21 +12,21 @@
             --info: #2980b9;
             --bg: #111111; /* Tumma tausta */
             --text: #ffffff;
-            --card-bg: rgba(20, 20, 20, 0.85); /* Läpinäkyvä tumma kortti */
+            --card-bg: rgba(20, 20, 20, 0.9); /* Läpinäkyvä tumma kortti */
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
-            /* PK-35 Punamustaraidallinen teematausta ja logo keskellä */
+            /* KORJATTU CSS: Raidat ja logo toimivat nyt yhdessä */
             background-image: 
-                linear-with-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
-                url('https://pk35.fi/images/Logot/PK-35_logo_pysty_RGB.png'),
-                repeating-linear-gradient(90deg, #111 0px, #111 60px, #8b0000 60px, #8b0000 120px);
+                linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
+                url('https://upload.wikimedia.org/wikipedia/fi/thumb/0/05/PK-35_Helsinki_logo.svg/1200px-PK-35_Helsinki_logo.svg.png'),
+                repeating-linear-gradient(90deg, #111 0px, #111 60px, #600 60px, #600 120px);
             background-position: center;
             background-repeat: no-repeat, no-repeat, repeat;
             background-attachment: fixed;
-            background-size: cover, 450px, auto;
+            background-size: cover, 380px, auto;
             color: var(--text);
             margin: 0;
             padding: 20px;
@@ -329,7 +329,7 @@
 </div>
 
 <script>
-    // 🔗 OMA FIREBASE-LINKKISI (Vaihda tähän omasi!)
+    // 🔗 OMA FIREBASE-LINKKISI
     const FIREBASE_URL = "https://seuran-tyoaika-default-rtdb.europe-west1.firebasedatabase.app/";
 
     const PIN_CONFIG = {
