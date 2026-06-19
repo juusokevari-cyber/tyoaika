@@ -10,26 +10,65 @@
             --secondary: #e67e22;
             --danger: #962d22;
             --info: #2980b9;
-            --bg: #111111; /* Tumma tausta */
+            --bg: #111111; 
             --text: #ffffff;
-            --card-bg: rgba(20, 20, 20, 0.9); /* Läpinäkyvä tumma kortti */
+            --card-bg: rgba(18, 18, 18, 0.92); /* Erittäin tyylikäs, tumma ja läpinäkyvä */
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
-            /* KORJATTU CSS: Raidat ja logo toimivat nyt yhdessä */
+            /* Standardi ja varma pystyraitatausta */
             background-image: 
-                linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
-                url('https://upload.wikimedia.org/wikipedia/fi/thumb/0/05/PK-35_Helsinki_logo.svg/1200px-PK-35_Helsinki_logo.svg.png'),
-                repeating-linear-gradient(90deg, #111 0px, #111 60px, #600 60px, #600 120px);
-            background-position: center;
-            background-repeat: no-repeat, no-repeat, repeat;
+                linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.9)),
+                repeating-linear-gradient(90deg, #111111 0px, #111111 60px, #700707 60px, #700707 120px);
             background-attachment: fixed;
-            background-size: cover, 380px, auto;
+            background-size: cover, auto;
             color: var(--text);
             margin: 0;
             padding: 20px;
+            position: relative;
+        }
+
+        /* ⚽ DIGITAALINEN PK-35 LOGO TAUSTALLE (Varmistettu toimivuus kaikilla laitteilla) */
+        body::before {
+            content: "PK-35";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03); /* Erittäin hienovaraisesti taustalta kuultava teksti */
+            font-style: italic;
+            letter-spacing: -5px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Seuran tunnus ja tyylitelty kilpi sivuston yläreunassa */
+        .club-logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .shield-logo {
+            width: 60px;
+            height: 60px;
+            background: #000;
+            border: 3px solid #f1c40f; /* Kultainen reunus kuten PK-35 logossa */
+            border-radius: 0 0 30px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border-top: 10px solid var(--primary); /* Punainen yläosa */
         }
 
         .container {
@@ -38,28 +77,28 @@
             background: var(--card-bg);
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+            border: 1px solid rgba(192, 57, 43, 0.3); /* Punertava hienovaraisreuna laatikossa */
+            backdrop-filter: blur(10px);
         }
 
         h1, h2, h3 {
             color: #ffffff;
             border-bottom: 2px solid var(--primary);
             padding-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         .login-box {
             max-width: 400px;
-            margin: 100px auto;
+            margin: 80px auto;
             background: var(--card-bg);
-            padding: 30px;
+            padding: 35px;
             border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.7);
-            border: 1px solid var(--primary);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+            border: 2px solid var(--primary);
             text-align: center;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
         }
 
         .grid {
@@ -87,14 +126,14 @@
             border-radius: 6px;
             box-sizing: border-box;
             font-family: inherit;
-            background-color: rgba(30, 30, 30, 0.9);
+            background-color: #1a1a1a;
             color: #fff;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 8px rgba(192, 57, 43, 0.5);
+            box-shadow: 0 0 8px rgba(192, 57, 43, 0.6);
         }
 
         button {
@@ -107,6 +146,7 @@
             transition: background 0.2s, transform 0.1s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
         button:hover {
@@ -117,21 +157,21 @@
         .btn-info { background-color: var(--info); margin-top: 10px; }
         .btn-info:hover { background-color: #1f6391; }
         
-        .btn-danger { background-color: #7f8c8d; margin-top: 10px; }
-        .btn-danger:hover { background-color: #6c7a7d; }
+        .btn-danger { background-color: #555; margin-top: 10px; }
+        .btn-danger:hover { background-color: #444; }
 
         .logout-btn {
             float: right;
             width: auto;
-            background-color: #333;
+            background-color: #222;
             margin-top: 0;
             padding: 6px 15px;
-            border: 1px solid #555;
+            border: 1px solid #444;
         }
-        .logout-btn:hover { background-color: #444; }
+        .logout-btn:hover { background-color: #333; }
 
         .filter-box {
-            background: rgba(40, 40, 40, 0.6);
+            background: rgba(30, 30, 30, 0.7);
             padding: 12px;
             border: 1px solid var(--info);
             border-radius: 6px;
@@ -140,13 +180,14 @@
 
         .month-section {
             margin-top: 20px;
-            border: 1px solid #444;
+            border: 1px solid #333;
             border-radius: 6px;
             overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
 
         .month-header {
-            background: #222;
+            background: #1a1a1a;
             color: white;
             padding: 12px;
             font-weight: bold;
@@ -155,11 +196,11 @@
         }
 
         .accordion-item {
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #222;
         }
 
         .accordion-trigger {
-            background: rgba(30, 30, 30, 0.7);
+            background: rgba(30, 30, 30, 0.8);
             padding: 12px 15px;
             cursor: pointer;
             font-weight: bold;
@@ -169,23 +210,23 @@
         }
 
         .accordion-trigger:hover {
-            background: rgba(50, 50, 50, 0.8);
+            background: rgba(45, 45, 45, 0.9);
         }
 
         .accordion-content {
             display: none;
             padding: 10px 20px;
-            background: rgba(15, 15, 15, 0.8);
+            background: rgba(15, 15, 15, 0.95);
         }
 
         .day-item {
             margin: 5px 0;
-            border: 1px solid #333;
+            border: 1px solid #252525;
             border-radius: 4px;
         }
 
         .day-trigger {
-            background: rgba(40, 40, 40, 0.5);
+            background: rgba(35, 35, 35, 0.7);
             padding: 8px 12px;
             cursor: pointer;
             font-size: 0.95em;
@@ -195,30 +236,30 @@
         }
 
         .day-trigger:hover {
-            background: rgba(60, 60, 60, 0.6);
+            background: rgba(50, 50, 50, 0.8);
         }
 
         .day-content {
             display: none;
             padding: 10px 15px;
-            background: rgba(20, 20, 20, 0.9);
-            border-top: 1px solid #333;
+            background: #0d0d0d;
+            border-top: 1px solid #222;
         }
 
         .pankki-info {
             display: flex;
             justify-content: space-between;
-            background: #222;
+            background: #1a1a1a;
             padding: 8px 12px;
             border-radius: 4px;
             margin-top: 10px;
             margin-bottom: 10px;
             font-weight: bold;
-            border: 1px solid #444;
+            border: 1px solid #333;
         }
 
-        .saldo-plus { color: #2ecc71; }
-        .saldo-miinus { color: #e74c3c; }
+        .saldo-plus { color: #2ecc71; font-weight: bold; }
+        .saldo-miinus { color: #e74c3c; font-weight: bold; }
 
         .tag {
             background: var(--primary);
@@ -242,7 +283,10 @@
 <body>
 
 <div id="loginPage" class="login-box">
-    <h2>⚽ PK-35 Työaika</h2>
+    <div class="club-logo-header">
+        <div class="shield-logo">PK-35</div>
+    </div>
+    <h2>PK-35 Työaika</h2>
     <p>Syötä henkilökohtainen PIN-koodisi.</p>
     <form id="loginForm">
         <label for="pinCode">PIN-koodi:</label>
@@ -253,7 +297,11 @@
 
 <div id="mainPage" class="container" style="display: none;">
     <button id="logoutBtn" class="logout-btn">🚪 Ulos</button>
-    <h1>PK-35 Työajan Seuranta (<span id="userDisplay"></span>)</h1>
+    
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+        <div class="shield-logo" style="width:45px; height:45px; font-size:0.85em; border-radius: 0 0 20px 20px; border-top-width:6px;">PK-35</div>
+        <h1 style="border-bottom:none; padding-bottom:0; margin:0;">PK-35 Seuranta (<span id="userDisplay"></span>)</h1>
+    </div>
 
     <div class="grid">
         <section>
@@ -295,7 +343,7 @@
         </section>
 
         <section id="reportSection">
-            <h2 id="reportTitle">📊 Kuukausi- & Viikkoraportit</h2>
+            <h2>📊 Kuukausi- & Viikkoraportit</h2>
             <p id="reportSub">Ladataan tietoja pilvestä...</p>
             
             <div id="managerFilterContainer" class="filter-box" style="display: none;">
@@ -329,7 +377,7 @@
 </div>
 
 <script>
-    // 🔗 OMA FIREBASE-LINKKISI
+    // 🔗 TÄHÄN SE SINUN OMA FIREBASE-LINKKISI (Laita tähän omasi!)
     const FIREBASE_URL = "https://seuran-tyoaika-default-rtdb.europe-west1.firebasedatabase.app/";
 
     const PIN_CONFIG = {
@@ -359,7 +407,6 @@
     
     const workForm = document.getElementById('workForm');
     const reportContainer = document.getElementById('reportContainer');
-    const reportTitle = document.getElementById('reportTitle');
     const reportSub = document.getElementById('reportSub');
     const taskSelect = document.getElementById('task');
     const detailsTextarea = document.getElementById('details');
@@ -416,7 +463,6 @@
         employeeSelect.innerHTML = '';
 
         if (currentUser.rooli === 'manager') {
-            reportTitle.innerText = "📊 Johtajan tunti- & viikkonäkymä";
             downloadBtn.style.display = 'inline-block';
             clearBtn.style.display = 'inline-block';
             managerFilterContainer.style.display = 'block';
@@ -427,7 +473,6 @@
             }
             employeeSelect.innerHTML = html;
         } else {
-            reportTitle.innerText = `📊 Oma tunti- & viikkonäkymä`;
             downloadBtn.style.display = 'none';
             clearBtn.style.display = 'none';
             managerFilterContainer.style.display = 'none';
@@ -508,6 +553,7 @@
     function pivitaRaportti() {
         if (!currentUser) return;
         reportContainer.innerHTML = '';
+        reportSub.innerText = "Tiedot synkronoitu reaaliajassa pilvestä.";
         if (dataLog.length === 0) { reportContainer.innerHTML = '<p>Ei vielä kirjauksia.</p>'; return; }
 
         const taskTotals = {};
